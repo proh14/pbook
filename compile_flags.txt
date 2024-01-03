@@ -1,0 +1,8 @@
+-Wall
+--debug
+-Wextra
+-pedantic
+-std=c99
+-I./src/include
+-MMD
+-MP
