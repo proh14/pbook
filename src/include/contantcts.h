@@ -1,4 +1,4 @@
-#progama once
+#pragma once
 #ifndef _CONTACTS_H_
 #define _CONTACTS_H_
 
