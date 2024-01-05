@@ -11,9 +11,19 @@ void addContact(person *p) {
 }
 
 int readContact(namepair *n, FILE *fp) {
-  int ret = fscanf(fp, "%s,%s,%*s,%*s,%*s\n", n->name, n->numbers);
+  char line[sizeof(person)];
+  void *ret = fgets(line, sizeof(line), fp);
 
-  return ret;
+  if (!ret) {
+    return EOF;
+  }
+
+  char *token = strtok(line, ",");
+  strcpy(n->name, token);
+  token = strtok(NULL, ",");
+  strcpy(n->numbers, token);
+
+  return 1;
 }
 
 void editContact(person *o, person *p) {
