@@ -5,9 +5,15 @@
 
 void addContact(person *p) {
   FILE *fp = fopen(FILENAME, "a");
-  fprintf(fp, "%s,%s,%s,%s,%s\n", p->name, p->address, p->address2, p->email,
-          p->birthday);
+  fprintf(fp, "%s,%s,%s,%s,%s,%s\n", p->name, p->numbers, p->address,
+          p->address2, p->email, p->birthday);
   fclose(fp);
+}
+
+int readContact(namepair *n, FILE *fp) {
+  int ret = fscanf(fp, "%s,%s,%*s,%*s,%*s\n", n->name, n->numbers);
+
+  return ret;
 }
 
 void editContact(person *o, person *p) {
@@ -17,8 +23,8 @@ void editContact(person *o, person *p) {
   while (fgets(line, sizeof(line), fp)) {
     char *token = strtok(line, ",");
     if (strcmp(token, o->name) == 0) {
-      fprintf(fp2, "%s,%s,%s,%s,%s\n", p->name, p->address, p->address2,
-              p->email, p->birthday);
+      fprintf(fp2, "%s,%s,%s,%s,%s,%s\n", p->name, p->numbers, p->address,
+              p->address2, p->email, p->birthday);
     } else {
       fprintf(fp2, "%s", line);
     }
@@ -53,6 +59,8 @@ person *searchContact(char *name) {
     if (strcmp(token, name) == 0) {
       person *p = malloc(sizeof(person));
       strcpy(p->name, token);
+      token = strtok(NULL, ",");
+      strcpy(p->numbers, token);
       token = strtok(NULL, ",");
       strcpy(p->address, token);
       token = strtok(NULL, ",");
