@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+char *FILENAME;
+
 void addContact(person *p) {
   FILE *fp = fopen(FILENAME, "a");
   fprintf(fp, "%s,%s,%s,%s,%s,%s\n", p->name, p->numbers, p->address,
@@ -86,3 +88,19 @@ person *searchContact(char *name) {
   fclose(fp);
   return NULL;
 }
+
+void initContact(void) {
+  const char *path = "/.contacts.pbook";
+
+  char *home = getenv("HOME");
+  if (home == NULL) {
+    printf("HOME not set.\n");
+    exit(1);
+  }
+
+  FILENAME = malloc(strlen(home) + strlen(path) + 1);
+  strcpy(FILENAME, home);
+  strcat(FILENAME, path);
+}
+
+void endContact(void) { free(FILENAME); }
