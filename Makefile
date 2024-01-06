@@ -1,4 +1,4 @@
-CC=clang
+CC=gcc
 TARGET_EXEC := pbook 
 BUILD_DIR := ./build
 SRC_DIRS := ./src
