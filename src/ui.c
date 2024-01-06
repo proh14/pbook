@@ -6,6 +6,9 @@
 #include <ui.h>
 #include <utils.h>
 
+WINDOW *win;
+WINDOW *subwindow;
+
 #define CTRL(k) ((k)&0x1f)
 
 void init_ui(void) {
@@ -41,10 +44,11 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
   refresh();
 }
 
+void draw_form(person *p) { free(p); }
+
 void draw_menu(void) {
   ITEM **items;
   MENU *menu;
-  WINDOW *win;
 
   int lines = lineNumber(FILENAME);
 
@@ -68,8 +72,10 @@ void draw_menu(void) {
   int w_lines = LINES - 2;
   int w_cols = COLS;
 
+  subwindow = derwin(win, w_lines - 3, w_cols - 1, 3, 1);
+
   set_menu_win(menu, win);
-  set_menu_sub(menu, derwin(win, w_lines - 3, w_cols - 1, 3, 1));
+  set_menu_sub(menu, subwindow);
   set_menu_format(menu, w_lines - 4, 1);
 
   set_menu_mark(menu, "* ");
@@ -94,6 +100,9 @@ void draw_menu(void) {
       menu_driver(menu, REQ_UP_ITEM);
       break;
     case 10:
+      unpost_menu(menu);
+      draw_form(searchContact(item_name(current_item(menu))));
+      post_menu(menu);
       break;
     }
     wrefresh(win);
