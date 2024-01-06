@@ -17,11 +17,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <contacts.h>
 #include <stdio.h>
+#include <ui.h>
 
 int main(void) {
-
-  printf("Hello world");
-
+  initContact();
+  init_ui();
+  draw_title();
+  draw_help();
+  draw_menu();
+  end_ui();
+  endContact();
   return 0;
 }
