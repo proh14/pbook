@@ -17,9 +17,9 @@ void init_ui(void) {
 // https://tldp.org/HOWTO/NCURSES-Programming-HOWTO
 // with modification
 static void middlePrint(WINDOW *win, int starty, int startx, int width,
-                        char *string) {
+                        const char *string) {
   int length, x, y;
-  float temp;
+  int temp;
 
   if (win == NULL)
     win = stdscr;
@@ -41,7 +41,6 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
 void draw_menu(void) {
   ITEM **items;
   MENU *menu;
-  ITEM *cur;
   WINDOW *win;
 
   int lines = lineNumber(FILENAME);
