@@ -48,7 +48,7 @@ void draw_menu(void) {
 
   int lines = lineNumber(FILENAME);
 
-  items = malloc(sizeof(ITEM *) * lines + 1);
+  items = malloc(sizeof(ITEM *) * (lines + 1));
 
   FILE *fp = fopen(FILENAME, "r");
   namepair *np = malloc(sizeof(namepair) * lines);
@@ -94,17 +94,18 @@ void draw_menu(void) {
       menu_driver(menu, REQ_UP_ITEM);
       break;
     case 10:
-      middlePrint(win, 1, 0, w_cols - 3, item_name(current_item(menu)));
+      break;
     }
     wrefresh(win);
   }
 
   unpost_menu(menu);
-  free_menu(menu);
-  for (int i = 0; i < lines; i++) {
+  for (int i = 0; i <= lines; i++) {
     free_item(items[i]);
   }
+  free_menu(menu);
   free(np);
+  delwin(win);
 }
 
 void draw_title(void) {
@@ -119,7 +120,7 @@ void draw_title(void) {
 }
 
 void draw_help(void) {
-  mvprintw(LINES - 1, 0, "Press CTRL+q to quit");
+  mvprintw(LINES - 1, 0, "Press CTRL + Q to quit");
   refresh();
 }
 
