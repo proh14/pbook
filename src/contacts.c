@@ -63,7 +63,7 @@ void deleteContact(person *p) {
   rename("temp.txt", FILENAME);
 }
 
-person *searchContact(char *name) {
+person *searchContact(const char *name) {
   FILE *fp = fopen(FILENAME, "r");
   char line[sizeof(person)];
   while (fscanf(fp, "%s", line) != EOF) {

@@ -28,7 +28,7 @@ typedef struct namepair {
 
 void addContact(person *p);
 void deleteContact(person *p);
-person *searchContact(char *name);
+person *searchContact(const char *name);
 void editContact(person *o, person *n);
 int readContact(namepair *p, FILE *fp);
 void initContact(void);
