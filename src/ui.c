@@ -6,10 +6,13 @@
 #include <ui.h>
 #include <utils.h>
 
+#define CTRL(k) ((k)&0x1f)
+
 void init_ui(void) {
   initscr();
   cbreak();
   noecho();
+  raw();
   keypad(stdscr, TRUE);
   curs_set(0);
 }
@@ -82,7 +85,7 @@ void draw_menu(void) {
 
   int c = 0;
 
-  while ((c = wgetch(win)) != 'q') {
+  while ((c = wgetch(win)) != CTRL('q')) {
     switch (c) {
     case KEY_DOWN:
       menu_driver(menu, REQ_DOWN_ITEM);
@@ -116,7 +119,7 @@ void draw_title(void) {
 }
 
 void draw_help(void) {
-  mvprintw(LINES - 1, 0, "Press 'q' to quit");
+  mvprintw(LINES - 1, 0, "Press CTRL+q to quit");
   refresh();
 }
 
