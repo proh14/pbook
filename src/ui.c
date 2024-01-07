@@ -45,25 +45,33 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
   refresh();
 }
 
-static void init_fields(FIELD *fields[]) {
-  fields[0] = new_field(1, 50, 6, 1, 10, 0);
-  fields[1] = new_field(1, 50, 8, 1, 0, 0);
+static void init_fields(FIELD *fields[], int num) {
+  int i = 0;
+  int y = 2;
+  while (i < num - 1) {
+    fields[i] = new_field(1, 50, y, 1, 0, 0);
+    set_field_back(fields[i], A_UNDERLINE);
+    field_opts_off(fields[i], O_AUTOSKIP);
+    y += 2;
+    i++;
+  }
+  fields[num] = NULL;
+}
+
+static void free_fields(FIELD *fields[]) {
+  int i = 0;
+  while (fields[i] != NULL) {
+    free_field(fields[i]);
+    i++;
+  }
 }
 
 void draw_form(person *p) {
   curs_set(1);
   FORM *form;
-  const int MAX_FIELDS = 3;
+  const int MAX_FIELDS = 7;
   FIELD *fields[MAX_FIELDS];
-  init_fields(fields);
-  fields[2] = NULL;
-
-  set_field_buffer(fields[0], 0, p->name);
-
-  set_field_back(fields[0], A_UNDERLINE);
-  field_opts_off(fields[0], O_AUTOSKIP);
-  set_field_back(fields[1], A_UNDERLINE);
-  field_opts_off(fields[1], O_AUTOSKIP);
+  init_fields(fields, MAX_FIELDS);
 
   form = new_form(fields);
   set_form_win(form, win);
@@ -107,8 +115,8 @@ void draw_form(person *p) {
   }
 
   unpost_form(form);
-  free_field(fields[0]);
-  free_field(fields[1]);
+  free_form(form);
+  free_fields(fields);
   free(p);
   curs_set(0);
 }
