@@ -49,7 +49,7 @@ static void init_fields(FIELD *fields[], int num) {
   int i = 0;
   int y = 2;
   while (i < num - 1) {
-    fields[i] = new_field(1, 50, y, 1, 0, 0);
+    fields[i] = new_field(1, 15, y, 1, 15, 0);
     set_field_back(fields[i], A_UNDERLINE);
     field_opts_off(fields[i], O_AUTOSKIP);
     y += 2;
