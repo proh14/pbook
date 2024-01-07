@@ -1,4 +1,5 @@
 #include <contacts.h>
+#include <form.h>
 #include <menu.h>
 #include <ncurses.h>
 #include <stdlib.h>
@@ -44,7 +45,73 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
   refresh();
 }
 
-void draw_form(person *p) { free(p); }
+static void init_fields(FIELD *fields[]) {
+  fields[0] = new_field(1, 50, 6, 1, 10, 0);
+  fields[1] = new_field(1, 50, 8, 1, 0, 0);
+}
+
+void draw_form(person *p) {
+  curs_set(1);
+  FORM *form;
+  const int MAX_FIELDS = 3;
+  FIELD *fields[MAX_FIELDS];
+  init_fields(fields);
+  fields[2] = NULL;
+
+  set_field_buffer(fields[0], 0, p->name);
+
+  set_field_back(fields[0], A_UNDERLINE);
+  field_opts_off(fields[0], O_AUTOSKIP);
+  set_field_back(fields[1], A_UNDERLINE);
+  field_opts_off(fields[1], O_AUTOSKIP);
+
+  form = new_form(fields);
+  set_form_win(form, win);
+  set_form_sub(form, subwindow);
+
+  post_form(form);
+  box(win, 0, 0);
+  wrefresh(win);
+  refresh();
+
+  int c = 0;
+
+  form_driver(form, REQ_END_LINE);
+  while ((c = wgetch(win)) != CTRL('q')) {
+    switch (c) {
+    case KEY_UP:
+      form_driver(form, REQ_PREV_FIELD);
+      form_driver(form, REQ_END_LINE);
+      break;
+    case KEY_DOWN:
+      form_driver(form, REQ_NEXT_FIELD);
+      form_driver(form, REQ_END_LINE);
+      break;
+    case KEY_RIGHT:
+      form_driver(form, REQ_NEXT_CHAR);
+      break;
+    case KEY_LEFT:
+      form_driver(form, REQ_PREV_CHAR);
+      break;
+    case 127:
+      form_driver(form, REQ_PREV_CHAR);
+      form_driver(form, REQ_DEL_CHAR);
+      break;
+    case KEY_DC:
+      form_driver(form, REQ_DEL_CHAR);
+      break;
+    default:
+      form_driver(form, c);
+      break;
+    }
+  }
+
+  unpost_form(form);
+  free_field(fields[0]);
+  free_field(fields[1]);
+  free(p);
+  curs_set(0);
+}
 
 void draw_menu(void) {
   ITEM **items;
@@ -103,6 +170,8 @@ void draw_menu(void) {
       unpost_menu(menu);
       draw_form(searchContact(item_name(current_item(menu))));
       post_menu(menu);
+      box(win, 0, 0);
+      wrefresh(win);
       break;
     }
     wrefresh(win);
