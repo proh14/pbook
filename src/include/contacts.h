@@ -10,7 +10,7 @@ extern char *FILENAME;
 #define MAX_NUMBERS 20
 #define MAX_BIRTHDAY 15
 #define MAX_ADDRESS 50
-#define MAX_EMAIL 50
+#define MAX_EMAIL 20
 
 typedef struct person {
   char name[MAX_NAME];
