@@ -8,7 +8,7 @@ extern char *FILENAME;
 
 #define MAX_NAME 30
 #define MAX_NUMBERS 20
-#define MAX_BIRTHDAY 15
+#define MAX_BIRTHDAY 20
 #define MAX_ADDRESS 50
 #define MAX_EMAIL 20
 
