@@ -49,7 +49,9 @@ static void init_fields(FIELD *fields[], int num) {
   int i = 0;
   int y = 2;
   while (i < num - 1) {
-    fields[i] = new_field(1, 15, y, 1, 15, 0);
+    fields[i] = new_field(1, 20, y, 1, 0, 0);
+    field_opts_off(fields[i], O_STATIC);
+    set_max_field(fields[i], 20);
     set_field_back(fields[i], A_UNDERLINE);
     field_opts_off(fields[i], O_AUTOSKIP);
     y += 2;
@@ -72,7 +74,6 @@ void draw_form(person *p) {
   const int MAX_FIELDS = 7;
   FIELD *fields[MAX_FIELDS];
   init_fields(fields, MAX_FIELDS);
-
   form = new_form(fields);
   set_form_win(form, win);
   set_form_sub(form, subwindow);
@@ -116,8 +117,10 @@ void draw_form(person *p) {
 
   unpost_form(form);
   free_form(form);
+  mvprintw(0, 0, "%s", field_buffer(fields[0], 0));
   free_fields(fields);
   free(p);
+  refresh();
   curs_set(0);
 }
 
