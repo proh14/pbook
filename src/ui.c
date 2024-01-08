@@ -93,6 +93,7 @@ void draw_form(person *p) {
       form_driver(form, REQ_END_LINE);
       break;
     case KEY_DOWN:
+    case 10:
       form_driver(form, REQ_NEXT_FIELD);
       form_driver(form, REQ_END_LINE);
       break;
