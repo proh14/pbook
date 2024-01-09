@@ -7,8 +7,10 @@
 #include <ui.h>
 #include <utils.h>
 
-WINDOW *win;
-WINDOW *subwindow;
+static WINDOW *win;
+static WINDOW *subwindow;
+static int w_lines;
+static int w_cols;
 
 #define CTRL(k) ((k)&0x1f)
 
