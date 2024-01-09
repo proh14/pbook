@@ -145,7 +145,6 @@ void draw_form(person *p) {
 
   unpost_form(form);
   free_form(form);
-  mvprintw(0, 0, "%s", field_buffer(fields[0], 0));
   free_fields(fields);
   free(p);
   refresh();
