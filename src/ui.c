@@ -169,7 +169,7 @@ void draw_menu(void) {
   items[i] = NULL;
 
   w_cols = COLS / 2;
-  w_lines = LINES - 2;
+  w_lines = LINES - 1;
 
   win = newwin(w_lines, w_cols, 1, 0);
   menu = new_menu(items);
@@ -235,9 +235,6 @@ void draw_title(void) {
   refresh();
 }
 
-void draw_help(void) {
-  mvprintw(LINES - 1, 0, "Press CTRL + Q to quit");
-  refresh();
-}
+void draw_help(void) { (void)0; }
 
 void end_ui(void) { endwin(); }
