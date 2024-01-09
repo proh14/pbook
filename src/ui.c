@@ -166,12 +166,12 @@ void draw_menu(void) {
   fclose(fp);
   items[i] = NULL;
 
-  win = newwin(LINES - 2, COLS, 1, 0);
+  w_cols = COLS / 2;
+  w_lines = LINES - 2;
+
+  win = newwin(w_lines, w_cols, 1, 0);
   menu = new_menu(items);
   keypad(win, TRUE);
-
-  w_cols = COLS;
-  w_lines = LINES - 2;
 
   subwindow = derwin(win, w_lines - 3, w_cols - 1, 3, 1);
 
