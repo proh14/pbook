@@ -67,17 +67,16 @@ static void init_fields(FIELD *fields[], int num) {
       {MAX_ADDRESS, "\\d{1,5}\\s\\w.\\s(\\b\\w*\\b\\s){1,2}\\w*\\.",
        "Adress 2: "},
   };
-  mvwprintw(stdscr, 0, 0, "%d", opts[3].max);
   int i = 0;
   int y = 2;
   while (i < num - 1) {
-    fields[i] = new_field(1, 20, y, 1, 0, 0);
+    fields[i] = new_field(1, 20, y, 15, 0, 0);
     field_opts_off(fields[i], O_STATIC);
     set_max_field(fields[i], opts[i].max);
     set_field_type(fields[i], TYPE_REGEXP, opts[i].regex);
     set_field_back(fields[i], A_UNDERLINE);
     field_opts_off(fields[i], O_AUTOSKIP);
-    y += 2;
+    y += (w_lines) / num;
     i++;
   }
   fields[num] = NULL;
@@ -171,8 +170,8 @@ void draw_menu(void) {
   menu = new_menu(items);
   keypad(win, TRUE);
 
-  int w_lines = LINES - 2;
-  int w_cols = COLS;
+  w_cols = COLS;
+  w_lines = LINES - 2;
 
   subwindow = derwin(win, w_lines - 3, w_cols - 1, 3, 1);
 
