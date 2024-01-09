@@ -54,12 +54,9 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
 
 static void init_fields(FIELD *fields[], int num) {
   const struct field_settings opts[] = {
-      {MAX_NAME, "/^[A-Za-z]+$/", "Name: "},
-      {MAX_NUMBERS, "Phone number: "},
-      {MAX_EMAIL, "Email: "},
-      {MAX_BIRTHDAY, "Birthday: "},
-      {MAX_ADDRESS, "Adress 1: "},
-      {MAX_ADDRESS, "Adress 2: "},
+      {MAX_NAME, "Name: "},        {MAX_NUMBERS, "Phone number: "},
+      {MAX_EMAIL, "Email: "},      {MAX_BIRTHDAY, "Birthday: "},
+      {MAX_ADDRESS, "Adress 1: "}, {MAX_ADDRESS, "Adress 2: "},
   };
   int i = 0;
   int y = 2;
