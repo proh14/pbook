@@ -101,6 +101,8 @@ void draw_form(person *p) {
 
   post_form(form);
   box(win, 0, 0);
+  mvwaddch(win, 2, 0, ACS_LTEE);
+  mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
   draw_field_names(MAX_FIELDS);
   wrefresh(win);
   refresh();
@@ -185,8 +187,8 @@ void draw_menu(void) {
   refresh();
 
   mvwaddch(win, 2, 0, ACS_LTEE);
-  mvwhline(win, 2, 1, ACS_HLINE, w_cols - 2);
   mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
+  mvwhline(win, 2, 1, ACS_HLINE, w_cols - 2);
   middlePrint(win, 1, 0, w_cols, "CONTACTS");
   wrefresh(win);
 
@@ -205,6 +207,8 @@ void draw_menu(void) {
       draw_form(searchContact(item_name(current_item(menu))));
       post_menu(menu);
       box(win, 0, 0);
+      mvwaddch(win, 2, 0, ACS_LTEE);
+      mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
       wrefresh(win);
       break;
     }
