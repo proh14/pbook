@@ -72,6 +72,17 @@ static void init_fields(FIELD *fields[], int num) {
   }
 }
 
+static void set_field_buffers(person *p, FIELD *fields[]) {
+  int i = 0;
+  char *buffers[] = {
+      p->name, p->numbers, p->email, p->birthday, p->address, p->address2,
+  };
+  while (fields[i] != NULL) {
+    set_field_buffer(fields[i], 0, buffers[i]);
+    i++;
+  }
+}
+
 static void free_fields(FIELD *fields[]) {
   int i = 0;
   while (fields[i] != NULL) {
@@ -98,6 +109,7 @@ void draw_form(person *p) {
     fields[i] = NULL;
   }
   init_fields(fields, MAX_FIELDS);
+  set_field_buffers(p, fields);
   form = new_form(fields);
   set_form_win(form, win);
   set_form_sub(form, subwindow);
