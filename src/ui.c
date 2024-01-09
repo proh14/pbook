@@ -94,6 +94,9 @@ void draw_form(person *p) {
   FORM *form;
   const int MAX_FIELDS = 7;
   FIELD *fields[MAX_FIELDS];
+  for (int i = 0; i < MAX_FIELDS; i++) {
+    fields[i] = NULL;
+  }
   init_fields(fields, MAX_FIELDS);
   form = new_form(fields);
   set_form_win(form, win);
