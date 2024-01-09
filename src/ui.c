@@ -19,6 +19,12 @@ struct field_settings {
   char *name;
 };
 
+const struct field_settings opts[] = {
+    {MAX_NAME, "Name: "},        {MAX_NUMBERS, "Phone number: "},
+    {MAX_EMAIL, "Email: "},      {MAX_BIRTHDAY, "Birthday: "},
+    {MAX_ADDRESS, "Adress 1: "}, {MAX_ADDRESS, "Adress 2: "},
+};
+
 void init_ui(void) {
   initscr();
   cbreak();
@@ -53,11 +59,6 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
 }
 
 static void init_fields(FIELD *fields[], int num) {
-  const struct field_settings opts[] = {
-      {MAX_NAME, "Name: "},        {MAX_NUMBERS, "Phone number: "},
-      {MAX_EMAIL, "Email: "},      {MAX_BIRTHDAY, "Birthday: "},
-      {MAX_ADDRESS, "Adress 1: "}, {MAX_ADDRESS, "Adress 2: "},
-  };
   int i = 0;
   int y = 2;
   while (i < num - 1) {
@@ -79,6 +80,15 @@ static void free_fields(FIELD *fields[]) {
   }
 }
 
+static void draw_field_names(int num) {
+  int i;
+  int y = 2;
+  for (i = 0; i < num - 1; i++) {
+    mvwprintw(subwindow, y, 0, "%s", opts[i].name);
+    y += (w_lines) / num;
+  }
+}
+
 void draw_form(person *p) {
   curs_set(1);
   FORM *form;
@@ -91,6 +101,7 @@ void draw_form(person *p) {
 
   post_form(form);
   box(win, 0, 0);
+  draw_field_names(MAX_FIELDS);
   wrefresh(win);
   refresh();
 
