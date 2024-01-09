@@ -16,7 +16,6 @@ static int w_cols;
 
 struct field_settings {
   int max;
-  char *regex;
   char *name;
 };
 
@@ -56,18 +55,11 @@ static void middlePrint(WINDOW *win, int starty, int startx, int width,
 static void init_fields(FIELD *fields[], int num) {
   const struct field_settings opts[] = {
       {MAX_NAME, "/^[A-Za-z]+$/", "Name: "},
-      {MAX_NUMBERS,
-       "^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$",
-       "Phone number: "},
-      {MAX_EMAIL, "/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$/",
-       "Email: "},
-      {MAX_BIRTHDAY,
-       "^(0[1-9]|1[012])[-/.](0[1-9]|[12][0-9]|3[01])[-/.](19|20)\\d\\d$",
-       "Birthday: "},
-      {MAX_ADDRESS, "\\d{1,5}\\s\\w.\\s(\\b\\w*\\b\\s){1,2}\\w*\\.",
-       "Adress 1: "},
-      {MAX_ADDRESS, "\\d{1,5}\\s\\w.\\s(\\b\\w*\\b\\s){1,2}\\w*\\.",
-       "Adress 2: "},
+      {MAX_NUMBERS, "Phone number: "},
+      {MAX_EMAIL, "Email: "},
+      {MAX_BIRTHDAY, "Birthday: "},
+      {MAX_ADDRESS, "Adress 1: "},
+      {MAX_ADDRESS, "Adress 2: "},
   };
   int i = 0;
   int y = 2;
@@ -75,13 +67,11 @@ static void init_fields(FIELD *fields[], int num) {
     fields[i] = new_field(1, 20, y, 15, 0, 0);
     field_opts_off(fields[i], O_STATIC);
     set_max_field(fields[i], opts[i].max);
-    set_field_type(fields[i], TYPE_REGEXP, opts[i].regex);
     set_field_back(fields[i], A_UNDERLINE);
     field_opts_off(fields[i], O_AUTOSKIP);
     y += (w_lines) / num;
     i++;
   }
-  fields[num] = NULL;
 }
 
 static void free_fields(FIELD *fields[]) {
