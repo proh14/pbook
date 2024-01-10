@@ -66,7 +66,7 @@ void deleteContact(person *p) {
 person *searchContact(const char *name) {
   FILE *fp = fopen(FILENAME, "r");
   char line[sizeof(person)];
-  while (fscanf(fp, "%s", line) != EOF) {
+  while (fgets(line, sizeof(line), fp) != NULL) {
     char *token = strtok(line, ",");
     if (strcmp(token, name) == 0) {
       person *p = malloc(sizeof(person));
