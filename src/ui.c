@@ -100,6 +100,17 @@ static void draw_field_names(int num) {
   }
 }
 
+static void set_person_from_field(FIELD *fields[], person *p) {
+  char *buffers[] = {
+      p->name, p->numbers, p->email, p->birthday, p->address, p->address2,
+  };
+  int i = 0;
+  while (fields[i] != NULL) {
+    strcpy(buffers[i], rtrim(field_buffer(fields[i], 0)));
+    i++;
+  }
+}
+
 void draw_form(person *p) {
   curs_set(1);
   FORM *form;
@@ -155,10 +166,10 @@ void draw_form(person *p) {
     }
   }
 
+  set_person_from_field(fields, p);
   unpost_form(form);
   free_form(form);
   free_fields(fields);
-  free(p);
   refresh();
   curs_set(0);
 }
@@ -218,8 +229,12 @@ void draw_menu(void) {
       break;
     case 10:
       unpost_menu(menu);
-      draw_form(searchContact(item_name(current_item(menu))));
+      person *p = searchContact(item_name(current_item(menu)));
+      person p2 = *p;
+      draw_form(p);
       post_menu(menu);
+      editContact(&p2, p);
+      free(p);
       box(win, 0, 0);
       mvwaddch(win, 2, 0, ACS_LTEE);
       mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
