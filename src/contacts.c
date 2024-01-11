@@ -54,6 +54,7 @@ void deleteContact(person *p) {
   while (fgets(line, sizeof(line), fp)) {
     char *token = strtok(line, ",");
     if (strcmp(token, p->name) != 0) {
+      line[strlen(token)] = ',';
       fprintf(fp2, "%s", line);
     }
   }
