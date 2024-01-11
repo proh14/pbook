@@ -1,11 +1,13 @@
 #include <contacts.h>
 #include <form.h>
 #include <menu.h>
+#include <menu_handler.h>
 #include <ncurses.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ui.h>
 #include <utils.h>
+#include <window_handler.h>
 
 static WINDOW *win;
 static WINDOW *subwindow;
@@ -31,6 +33,8 @@ void init_ui(void) {
   noecho();
   raw();
   keypad(stdscr, TRUE);
+  init_window(&win, &subwindow, &w_lines, &w_cols);
+  refresh();
   curs_set(0);
 }
 
@@ -175,33 +179,11 @@ void draw_form(person *p) {
 }
 
 void draw_menu(void) {
-  ITEM **items;
+  ITEM **items = {NULL};
   MENU *menu;
+  namepair *np = init_items(&items);
 
-  int lines = lineNumber(FILENAME);
-
-  items = malloc(sizeof(ITEM *) * (lines + 1));
-
-  FILE *fp = fopen(FILENAME, "r");
-  namepair *np = malloc(sizeof(namepair) * lines);
-
-  int i = 0;
-  while (readContact(&np[i], fp) != EOF) {
-    items[i] = new_item(np[i].name, np[i].numbers);
-    i++;
-  }
-  fclose(fp);
-  items[i] = NULL;
-
-  w_cols = COLS / 2;
-  w_lines = LINES - 1;
-
-  win = newwin(w_lines, w_cols, 1, 0);
   menu = new_menu(items);
-  keypad(win, TRUE);
-
-  subwindow = derwin(win, w_lines - 3, w_cols - 1, 3, 1);
-
   set_menu_win(menu, win);
   set_menu_sub(menu, subwindow);
   set_menu_format(menu, w_lines - 4, 1);
@@ -245,12 +227,9 @@ void draw_menu(void) {
   }
 
   unpost_menu(menu);
-  for (int i = 0; i <= lines; i++) {
-    free_item(items[i]);
-  }
+  free_items(items);
   free_menu(menu);
   free(np);
-  delwin(win);
 }
 
 void draw_title(void) {
@@ -266,4 +245,7 @@ void draw_title(void) {
 
 void draw_help(void) { (void)0; }
 
-void end_ui(void) { endwin(); }
+void end_ui(void) {
+  delete_window(win, subwindow);
+  endwin();
+}
