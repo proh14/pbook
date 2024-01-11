@@ -1,4 +1,6 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 #include <utils.h>
 
 int lineNumber(char *filename) {
@@ -13,4 +15,14 @@ int lineNumber(char *filename) {
 
   fclose(fp);
   return lines;
+}
+
+char *rtrim(char *s) {
+  for (int i = strlen(s) - 1; i > 0; i--) {
+    if (!isspace(s[i])) {
+      break;
+    }
+    s[i] = '\0';
+  }
+  return s;
 }
