@@ -1,11 +1,8 @@
 #include <contacts.h>
-#include <menu.h>
 #include <menu_handler.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <ui.h>
 #include <utils.h>
-#include <window_handler.h>
 
 namepair *init_items(ITEM ***items) {
   int lines = lineNumber(FILENAME);
