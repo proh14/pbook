@@ -64,20 +64,12 @@ void draw_menu(void) {
   namepair *np = init_items(&items);
 
   menu = new_menu(items);
-  set_menu_win(menu, win);
-  set_menu_sub(menu, subwindow);
-  set_menu_format(menu, w_lines - 4, 1);
+  init_menu(menu, win, subwindow, w_lines);
 
-  set_menu_mark(menu, "* ");
-  box(win, 0, 0);
-  post_menu(menu);
-  refresh();
-
-  mvwaddch(win, 2, 0, ACS_LTEE);
-  mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
-  mvwhline(win, 2, 1, ACS_HLINE, w_cols - 2);
+  reformat(win, w_cols);
   middlePrint(win, 1, 0, w_cols, "CONTACTS");
-  wrefresh(win);
+
+  post_menu(menu);
 
   int c = 0;
 
@@ -97,10 +89,7 @@ void draw_menu(void) {
       post_menu(menu);
       editContact(&p2, p);
       free(p);
-      box(win, 0, 0);
-      mvwaddch(win, 2, 0, ACS_LTEE);
-      mvwaddch(win, 2, w_cols - 1, ACS_RTEE);
-      wrefresh(win);
+      reformat(win, w_cols);
       break;
     }
     wrefresh(win);
