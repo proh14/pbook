@@ -41,10 +41,9 @@ void set_field_buffers(person *p, FIELD *fields[]) {
 }
 
 void free_fields(FIELD *fields[]) {
-  int i = 0;
-  while (fields[i] != NULL) {
+  int i;
+  for (i = 0; fields[i] != NULL; i++) {
     free_field(fields[i]);
-    i++;
   }
 }
 
