@@ -1,5 +1,7 @@
 #include <contacts.h>
+#include <ctype.h>
 #include <form_handler.h>
+#include <menu.h>
 #include <menu_handler.h>
 #include <string.h>
 #include <ui.h>
@@ -63,6 +65,9 @@ void draw_menu(void) {
   MENU *menu;
   namepair *np = init_items(&items);
 
+  person *p;
+  person cp;
+
   menu = new_menu(items);
   init_menu(menu, win, subwindow, w_lines);
 
@@ -73,7 +78,7 @@ void draw_menu(void) {
 
   int c = 0;
 
-  while ((c = wgetch(win)) != CTRL('q')) {
+  while (tolower((c = wgetch(win))) != CTRL('q')) {
     switch (c) {
     case KEY_DOWN:
       menu_driver(menu, REQ_DOWN_ITEM);
@@ -83,13 +88,18 @@ void draw_menu(void) {
       break;
     case 10:
       unpost_menu(menu);
-      person *p = searchContact(item_name(current_item(menu)));
-      person p2 = *p;
+      p = searchContact(item_name(current_item(menu)));
+      cp = *p;
       draw_form(p);
       post_menu(menu);
-      editContact(&p2, p);
+      editContact(&cp, p);
       free(p);
       reformat(win, w_cols);
+      break;
+    case 'd':
+      p = searchContact(item_name(current_item(menu)));
+      deleteContact(p);
+      free(p);
       break;
     }
     wrefresh(win);
