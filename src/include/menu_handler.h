@@ -7,5 +7,6 @@
 
 namepair *init_items(ITEM ***items);
 void free_items(ITEM *items[]);
+void init_menu(MENU *menu, WINDOW *win, WINDOW *subwindow, int w_lines);
 
 #endif
