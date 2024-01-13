@@ -16,6 +16,9 @@ that stores it's database in a simple csv like file.
 ![preview](./images/preview.gif)
 
 ### How to install⬇️:
+
+0. Be sure to have `pkg-config`, `ncurses`, `make`, `C compiler` Installed( They should be present in all debian based distros).
+
 1. Clone this repo.
 ```shell
 git clone https://github.com/proh14/pbook.git
