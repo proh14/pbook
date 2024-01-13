@@ -1,4 +1,5 @@
 #include <contacts.h>
+#include <curses.h>
 #include <form.h>
 #include <form_handler.h>
 #include <string.h>
@@ -89,6 +90,7 @@ void do_form_key(FORM *form, int c) {
   case KEY_LEFT:
     form_driver(form, REQ_PREV_CHAR);
     break;
+  case KEY_BACKSPACE:
   case 127:
     form_driver(form, REQ_PREV_CHAR);
     form_driver(form, REQ_DEL_CHAR);
