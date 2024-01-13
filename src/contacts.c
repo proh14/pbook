@@ -47,6 +47,7 @@ void editContact(person *o, person *p) {
       fprintf(fp2, "%s,%s,%s,%s,%s,%s\n", p->name, p->numbers, p->address,
               p->address2, p->email, p->birthday);
     } else {
+      line[strlen(token)] = ',';
       fprintf(fp2, "%s", line);
     }
   }
