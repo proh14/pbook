@@ -112,6 +112,9 @@ void initContact(void) {
   FILENAME = malloc(strlen(home) + strlen(path) + 1);
   strcpy(FILENAME, home);
   strcat(FILENAME, path);
+
+  FILE *fp = fopen(FILENAME, "ab+");
+  fclose(fp);
 }
 
 void endContact(void) { free(FILENAME); }
