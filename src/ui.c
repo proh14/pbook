@@ -104,6 +104,18 @@ void draw_menu(void) {
       deleteContact(p);
       update_menu(menu, &items, &np);
       reformat(win, w_cols);
+      post_menu(menu);
+      free(p);
+      break;
+    case 'a':
+      unpost_menu(menu);
+      p = malloc(sizeof(person));
+      fillContact(p);
+      draw_form(p);
+      addContact(p);
+      update_menu(menu, &items, &np);
+      reformat(win, w_cols);
+      post_menu(menu);
       free(p);
       break;
     }
