@@ -1,9 +1,9 @@
-- [] Make the program more memory efficent.
-- [] Add a config file for the user.
-- [] Allow for custom fields.
-- [] Allow sorting the phonebook.
-- [] Make the program more efficent.
-- [] Add gpg encryption.
-- [] Support multiply file formats like: plain text, csv, xml, mutt.
-- [] Fix the usage of ',' in forms.
-- [] Allow for duplicate names.
+- [ ] Make the program more memory efficent.
+- [ ] Add a config file for the user.
+- [ ] Allow for custom fields.
+- [ ] Allow sorting the phonebook.
+- [ ] Make the program more efficent.
+- [ ] Add gpg encryption.
+- [ ] Support multiply file formats like: plain text, csv, xml, mutt.
+- [ ] Fix the usage of ',' in forms.
+- [ ] Allow for duplicate names.
