@@ -168,6 +168,8 @@ void draw_help(void) {
   mvwprintw(helpwin, 16, 1, "  Use typical keys to delete a character");
   mvwprintw(helpwin, 17, 1, "  Use CTRL + q to exit");
 
+  mvwprintw(helpwin, 20, 1, "Database file: %s", FILENAME);
+
   wrefresh(helpwin);
 }
 
