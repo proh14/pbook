@@ -90,6 +90,9 @@ void draw_menu(void) {
     case 10:
       unpost_menu(menu);
       p = searchContact(item_name(current_item(menu)));
+      if (p == NULL) {
+        break;
+      }
       cp = *p;
       draw_form(p);
       editContact(&cp, p);
@@ -101,6 +104,9 @@ void draw_menu(void) {
     case 'd':
       unpost_menu(menu);
       p = searchContact(item_name(current_item(menu)));
+      if (p == NULL) {
+        break;
+      }
       deleteContact(p);
       update_menu(menu, &items, &np);
       reformat(win, w_cols);
