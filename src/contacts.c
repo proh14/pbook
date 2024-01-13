@@ -12,6 +12,15 @@ void addContact(person *p) {
   fclose(fp);
 }
 
+void fillContact(person *p) {
+  strcpy(p->name, "none");
+  strcpy(p->numbers, "none");
+  strcpy(p->email, "none");
+  strcpy(p->birthday, "none");
+  strcpy(p->address, "none");
+  strcpy(p->address2, "none");
+}
+
 int readContact(namepair *n, FILE *fp) {
   char line[sizeof(person)];
   void *ret = fgets(line, sizeof(line), fp);

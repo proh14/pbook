@@ -33,5 +33,6 @@ void editContact(person *o, person *n);
 int readContact(namepair *p, FILE *fp);
 void initContact(void);
 void endContact(void);
+void fillContact(person *p);
 
 #endif
