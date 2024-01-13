@@ -11,6 +11,7 @@
 
 static WINDOW *win;
 static WINDOW *subwindow;
+static WINDOW *helpwin;
 static int w_lines;
 static int w_cols;
 
@@ -23,6 +24,7 @@ void init_ui(void) {
   raw();
   keypad(stdscr, TRUE);
   init_window(&win, &subwindow, &w_lines, &w_cols);
+  helpwin = newwin(LINES - 1, COLS / 2, 1, w_cols);
   refresh();
   curs_set(0);
 }
@@ -150,9 +152,27 @@ void draw_title(void) {
   refresh();
 }
 
-void draw_help(void) { (void)0; }
+void draw_help(void) {
+  reformat(helpwin, COLS / 2);
+  middlePrint(helpwin, 1, 1, COLS / 2, "HELP");
+  mvwprintw(helpwin, 3, 1, "In menu:");
+  mvwprintw(helpwin, 5, 1, "  Use arrow keys to move aroud.");
+  mvwprintw(helpwin, 6, 1, "  Use 'Enter' to select/edit a contact");
+  mvwprintw(helpwin, 7, 1, "  Use 'a' to add a contact");
+  mvwprintw(helpwin, 8, 1, "  Use 'd' to remove a contact");
+  mvwprintw(helpwin, 9, 1, "  Use CTRL + q to exit");
+
+  mvwprintw(helpwin, 12, 1, "In edit form:");
+  mvwprintw(helpwin, 14, 1, "  Use arrow keys to move aroud.");
+  mvwprintw(helpwin, 15, 1, "  Use 'Enter' to save that field a contact");
+  mvwprintw(helpwin, 16, 1, "  Use typical keys to delete a character");
+  mvwprintw(helpwin, 17, 1, "  Use CTRL + q to exit");
+
+  wrefresh(helpwin);
+}
 
 void end_ui(void) {
   delete_window(win, subwindow);
+  delwin(helpwin);
   endwin();
 }
