@@ -4,6 +4,7 @@
 #include <menu.h>
 #include <menu_handler.h>
 #include <ncurses.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ui.h>
 #include <window_handler.h>
@@ -118,7 +119,11 @@ void draw_menu(void) {
       p = malloc(sizeof(person));
       fillContact(p);
       draw_form(p);
-      addContact(p);
+      person *t = searchContact(p->name);
+      if (t == NULL) {
+        addContact(p);
+      }
+      free(t);
       update_menu(menu, &items, &np);
       reformat(win, w_cols);
       post_menu(menu);
