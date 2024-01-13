@@ -6,7 +6,8 @@
 #include <menu.h>
 
 namepair *init_items(ITEM ***items);
-void free_items(ITEM *items[]);
+void free_items(ITEM ***items);
 void init_menu(MENU *menu, WINDOW *win, WINDOW *subwindow, int w_lines);
+void update_menu(MENU *menu, ITEM ***itmes, namepair **np);
 
 #endif

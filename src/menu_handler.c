@@ -7,7 +7,6 @@
 namepair *init_items(ITEM ***items) {
   int lines = lineNumber(FILENAME);
 
-  free(*items);
   *items = malloc(sizeof(ITEM *) * (lines + 1));
 
   int i = 0;
@@ -24,15 +23,16 @@ namepair *init_items(ITEM ***items) {
     i++;
   }
   fclose(fp);
-  items[i] = NULL;
   return np;
 }
 
-void free_items(ITEM *items[]) {
+void free_items(ITEM ***items) {
   int i;
-  for (i = 0; items[i] != NULL; i++) {
-    free_item(items[i]);
+  for (i = 0; (*items)[i] != NULL; i++) {
+    free_item((*items)[i]);
   }
+  free_item((*items)[i]);
+  free(*items);
 }
 
 void init_menu(MENU *menu, WINDOW *win, WINDOW *subwindow, int w_lines) {

@@ -91,23 +91,26 @@ void draw_menu(void) {
       p = searchContact(item_name(current_item(menu)));
       cp = *p;
       draw_form(p);
-      post_menu(menu);
       editContact(&cp, p);
-      free(p);
+      update_menu(menu, &items, &np);
+      post_menu(menu);
       reformat(win, w_cols);
+      free(p);
       break;
     case 'd':
+      unpost_menu(menu);
       p = searchContact(item_name(current_item(menu)));
       deleteContact(p);
-      free(p);
+      update_menu(menu, &items, &np);
+      reformat(win, w_cols);
       break;
     }
     wrefresh(win);
   }
 
   unpost_menu(menu);
-  free_items(items);
   free_menu(menu);
+  free_items(&items);
   free(np);
 }
 
