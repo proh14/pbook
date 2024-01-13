@@ -3,6 +3,7 @@
 #include <form_handler.h>
 #include <menu.h>
 #include <menu_handler.h>
+#include <ncurses.h>
 #include <string.h>
 #include <ui.h>
 #include <window_handler.h>

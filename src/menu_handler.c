@@ -42,3 +42,11 @@ void init_menu(MENU *menu, WINDOW *win, WINDOW *subwindow, int w_lines) {
 
   set_menu_mark(menu, "* ");
 }
+
+void update_menu(MENU *menu, ITEM ***items, namepair **np) {
+  set_menu_items(menu, NULL);
+  free_items(items);
+  free(*np);
+  *np = init_items(items);
+  set_menu_items(menu, *items);
+}
