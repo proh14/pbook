@@ -104,6 +104,7 @@ void draw_menu(void) {
       deleteContact(p);
       update_menu(menu, &items, &np);
       reformat(win, w_cols);
+      free(p);
       break;
     }
     wrefresh(win);
