@@ -58,7 +58,7 @@ I am spending my free time trying to optimize, fix bugs, add new features to thi
 you can see the [TODO](./TODO.md) file for a list of things I want to do.
 
 ### Thank you Stargazers⭐:
-[![Stargazers repo roster for @proh14/pbook](http://reporoster.com/stars/proh14/pbook)](https://github.com/proh14/ptext/stargazers)
+[![Stargazers repo roster for @proh14/pbook](http://reporoster.com/stars/proh14/pbook)](https://github.com/proh14/pbook/stargazers)
 
 ### Thank you Forkers🍴:
 [![Forkers repo roster for @proh14/pbook](http://reporoster.com/forks/proh14/pbook)](https://github.com/proh14/pbook/network/members)
