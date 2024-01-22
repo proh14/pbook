@@ -5,6 +5,6 @@
 - [ ] Make the program more efficent.
 - [ ] Add gpg encryption.
 - [ ] Support multiply file formats like: plain text, csv, xml, mutt.
-- [ ] Fix the usage of ',' in forms.
+- [x] Fix the usage of ',' in forms.
 - [ ] Allow for duplicate names.
 - [ ] Check for screen boudries.
