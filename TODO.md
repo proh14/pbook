@@ -8,3 +8,4 @@
 - [x] Fix the usage of ',' in forms.
 - [ ] Allow for duplicate names.
 - [ ] Check for screen boudries.
+- [ ] Add support for vCards.
