@@ -4,5 +4,6 @@
 
 int lineNumber(char *filename);
 char *rtrim(char *s);
+char *rcoms(char *s);
 
 #endif

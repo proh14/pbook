@@ -63,7 +63,7 @@ void set_person_from_field(FIELD *fields[], person *p) {
   };
   int i = 0;
   while (fields[i] != NULL) {
-    strcpy(buffers[i], rtrim(field_buffer(fields[i], 0)));
+    strcpy(buffers[i], rcoms(rtrim(field_buffer(fields[i], 0))));
     i++;
   }
 }
