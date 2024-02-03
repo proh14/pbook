@@ -1,9 +1,26 @@
 #include <contacts.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 char *FILENAME;
+
+bool contactMatch(person *p1, person *p2) {
+  if (strcmp(p1->name, p2->name) != 0)
+    return false;
+  if (strcmp(p1->email, p2->email) != 0)
+    return false;
+  if (strcmp(p1->numbers, p2->numbers) != 0)
+    return false;
+  if (strcmp(p1->address, p2->address) != 0)
+    return false;
+  if (strcmp(p1->address2, p2->address2) != 0)
+    return false;
+  if (strcmp(p1->birthday, p2->birthday) != 0)
+    return false;
+  return true;
+}
 
 void addContact(person *p) {
   FILE *fp = fopen(FILENAME, "a");
