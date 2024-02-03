@@ -4,5 +4,6 @@
 -pedantic
 -std=c99
 -I./src/include
+-I./
 -MMD
 -MP
