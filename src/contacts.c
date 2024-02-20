@@ -1,8 +1,10 @@
+#include <config.def.h>
 #include <contacts.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 char *FILENAME;
 
@@ -118,18 +120,29 @@ person *searchContact(const char *name) {
 }
 
 void initContact(void) {
-  const char *path = "/.contacts.pbook";
-
+  int file_size = 15;
   char *home = getenv("HOME");
   if (home == NULL) {
     printf("HOME not set.\n");
     exit(1);
   }
 
+#if USE_XDG == 0
+  const char *path = "/.contacts.pbook";
+#else
+  const char *path = "/.local/share/pbook/contacts.pbook";
+  file_size = 14;
+#endif
   FILENAME = malloc(strlen(home) + strlen(path) + 1);
   strcpy(FILENAME, home);
   strcat(FILENAME, path);
-
+  FILENAME[strlen(path) + strlen(home) - file_size] = '\0';
+  struct stat st = {0};
+  if (stat(FILENAME, &st) == -1) {
+    mkdir(FILENAME, 0700);
+  }
+  FILENAME[strlen(path) + strlen(home) - file_size] =
+      (file_size == 15) ? '.' : 'c';
   FILE *fp = fopen(FILENAME, "ab+");
   fclose(fp);
 }
